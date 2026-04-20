@@ -1,0 +1,23 @@
+# Original prompt drafts (not part of the public repo)
+prompt-alessio.txt
+prompt-behavioral-full.md
+prompt_buffett_munger_breve.md
+prompt_buffett_munger_completo.md
+prompt_buffett_munger_full.md
+prompt_buffett_munger_full_gemini_optimized.md
+
+# Screening results (local data, not shared)
+screen-results.csv
+
+# Ticker lists (may contain personal watchlists)
+tickers.txt
+*.tickers
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~

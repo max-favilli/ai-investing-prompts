@@ -1,0 +1,10 @@
+{
+  "name": "ai-stock-prompts",
+  "description": "Structured AI prompts for stock analysis: value investing (Buffett/Munger), behavioral finance, and sentiment screening",
+  "version": "1.0.0",
+  "author": {
+    "name": "Max Favilli",
+    "email": "max.favilli@gmail.com"
+  },
+  "license": "MIT"
+}
