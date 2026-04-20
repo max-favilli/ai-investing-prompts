@@ -77,11 +77,26 @@ Use this bash approach to append:
 - If not, write header line first
 - Append each ticker as a new CSV row
 
-### Step 3: Confirm
+### Step 3: Update the Markdown results file
 
-After appending, report:
-- How many tickers were added
-- Total rows now in the file
+The output file is `screen-results.md` in the current working directory.
+
+This file is a **full rewrite** on every run (not append-only like the CSV). It must always reflect the complete contents of `screen-results.csv` as a readable markdown table.
+
+**Process:**
+1. After updating the CSV, read the full `screen-results.csv` file.
+2. Rewrite `screen-results.md` with:
+   - A `# Screen Results` heading
+   - A `*Last updated: YYYY-MM-DD*` line with today's date
+   - A markdown table containing **all rows** from the CSV (all historical runs, not just the current batch)
+
+This ensures the markdown file always matches the CSV and is ready to view on GitHub.
+
+### Step 4: Confirm
+
+After updating both files, report:
+- How many tickers were added in this run
+- Total rows now in the file (across all runs)
 - Any tickers that could not be analyzed (and why)
 
 ---

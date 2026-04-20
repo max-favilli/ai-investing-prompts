@@ -72,6 +72,40 @@ The `/screen` skill appends results to `screen-results.csv`:
 
 For large lists (~100 tickers), split into batches of 15-20 and run multiple times. Results accumulate automatically.
 
+## Understanding the Scores
+
+The screening system produces two independent scores per stock. The **Buffett Score** measures business quality. The **Behavioral Score** measures crowd psychology. Together they tell you what a business is worth and what the crowd is doing to its price.
+
+### Buffett Score (0-100) → Buffett Verdict
+
+| Score | Verdict | Meaning |
+|-------|---------|---------|
+| **90-100** | **Load the Truck** | Rare, exceptional opportunity. Wonderful business at a great price. |
+| **80-89** | **Buy** | High-quality business at a fair price. Classic Buffett territory. |
+| **70-79** | **Watchlist** | Good business, but price may be slightly rich. Wait for a better entry. |
+| **< 70** | **Pass** | Lacks moat, bad management, or extreme overvaluation. "Too hard." |
+
+### Behavioral Score (0-100) → Sentiment Read
+
+| Score | Sentiment Read | Meaning |
+|-------|----------------|---------|
+| **80-100** | **Irrational Hype** | Full FOMO mode. Price driven by narrative, not fundamentals. High blow-up risk. |
+| **60-79** | **Tailwind** | Strong positive psychology. Crowd is engaged and directional, but not yet irrational. |
+| **40-59** | **Neutral** | No dominant psychological force. Price driven by fundamentals, not crowd behavior. |
+| **20-39** | **Drag** | Negative sentiment weighing on the stock. Crowd is fearful or disengaging. |
+| **0-19** | **Panic** | Full capitulation or narrative collapse. Either the business is broken, or it's a contrarian opportunity. |
+
+### Reading the Two Scores Together
+
+The gap between Buffett Score and Behavioral Score is where opportunity (or danger) lives:
+
+| Combination | What It Means | Example |
+|------------|---------------|---------|
+| High Buffett + Neutral/Drag | Best setup. Great business the crowd is ignoring or punishing. | BRK.A, UNH (potentially) |
+| High Buffett + Irrational Hype | Good business but dangerous entry point. You're paying a crowd premium. | NVDA during AI mania |
+| Low Buffett + Tailwind/Hype | Trap. Bad business riding a narrative wave. When the story breaks, there's nothing underneath. | Meme stocks, unprofitable hype |
+| Low Buffett + Panic | Usually a "Pass" — the crowd is right. Rare exceptions become legendary trades. | Distressed turnarounds |
+
 ## Built-In Guardrails
 
 Every prompt instructs the AI to:
