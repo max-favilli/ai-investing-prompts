@@ -2,6 +2,8 @@
 
 Structured prompts that encode proven investment frameworks into repeatable, scorable AI-assisted analysis.
 
+These are the rubrics behind [winthorpe.net](https://winthorpe.net). The site runs the files in `prompts/` verbatim, on whichever AI model the user picks, and shows the rubric version on every analysis. Improve a prompt here and it reaches every analysis at the next tagged version. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md).
+
 ## Why This Exists
 
 AI models are powerful research assistants, but they need structure to produce consistent, comparable output. These prompts turn investment philosophies into systematic checklists with scoring systems, so you get the same rigorous analysis every time — not a different rambling essay for each stock.
@@ -12,8 +14,11 @@ AI models are powerful research assistants, but they need structure to produce c
 
 | Prompt | Framework | What It Does |
 |--------|-----------|--------------|
-| [Buffett-Munger Value Analysis](prompts/buffett-munger-value-analysis.md) | Value Investing | 6-axis analysis: Moat, Management, Financial Health, Capital Allocation, Growth, Fair Price. Scores 0-100. |
-| [Behavioral Sentiment Analysis](prompts/behavioral-sentiment-analysis.md) | Behavioral Finance | 7-dimension analysis: Narrative, Sentiment, Momentum, Flows, Volatility, Irrationality, Catalysts. Scores 0-100 + Irrationality Index. |
+| [Buffett-Munger Value Analysis](prompts/buffett-munger-value-analysis.md) | Value Investing | 6 pillars: Moat, Management, Financial Health, Capital Allocation, Growth, Fair Price. Scores 0-100 with a verdict. |
+| [Behavioral Sentiment Analysis](prompts/behavioral-sentiment-analysis.md) | Behavioral Finance | 5 scored dimensions: Narrative, Sentiment, Momentum, Flows, Volatility, plus unscored bias mapping and catalysts. Scores 0-100 with a sentiment read. |
+| [Data table template](prompts/data-table-template.md) | Input | The block of financial data both prompts expect, so you can fill it yourself in a chat. |
+
+Each prompt has four placeholders the site fills: `{{TICKER}}`, `{{NAME}}`, `{{DATE}}` and `{{DATA}}`. The front matter at the top of each file (between the `---` lines) is metadata for the site and is not sent to the model.
 
 ### Claude Code Plugin (install once, use anywhere)
 
@@ -26,15 +31,19 @@ AI models are powerful research assistants, but they need structure to produce c
 
 ## Quick Start
 
+### Option 0: winthorpe.net
+Type a stock, pick a model, get both analyses. No setup. The site runs these exact prompts.
+
 ### Option 1: Copy-Paste (any AI model)
-1. Copy a prompt from the `/prompts` folder.
-2. Replace `[INSERT TICKER/NAME]` with your stock.
-3. Paste into ChatGPT, Claude, Gemini, or any LLM.
+1. Copy a prompt from the `/prompts` folder, without the front matter.
+2. Replace `{{TICKER}}`, `{{NAME}}` and `{{DATE}}` with your stock and today's date.
+3. Replace `{{DATA}}` with the block from `prompts/data-table-template.md`, filled in. In a chat with web access you can ask the model to fill it first, citing the date and source of each figure.
+4. Paste into ChatGPT, Claude, Gemini, or any LLM.
 
 ### Option 2: Claude Code Plugin
 ```bash
 # Install the plugin
-/plugin marketplace add your-username/ai-stock-prompts
+/plugin marketplace add max-favilli/ai-investing-prompts
 /plugin install ai-stock-prompts
 ```
 
@@ -108,22 +117,25 @@ The gap between Buffett Score and Behavioral Score is where opportunity (or dang
 
 ## Built-In Guardrails
 
-Every prompt instructs the AI to:
-- State the date of its most recent data
-- Write `[NOT VERIFIED]` instead of fabricating numbers
-- Cite sources (SEC filings, earnings calls)
-- Distinguish facts from opinions
-- Include a disclaimer
+Every prompt:
+- Tells the model to use only the supplied data for numbers and to treat `[NOT AVAILABLE]` as unknown rather than guess
+- Reserves the model's own knowledge for qualitative judgement (moat, management, narrative)
+- States its scoring bands so results are comparable across stocks and models
+- Ends with a machine-readable JSON block so scores can be parsed, stored and compared
+
+## Versions
+
+Prompts are released as git tags (`v1.0.0`, `v1.1.0`, ...) listed in [CHANGELOG.md](CHANGELOG.md). winthorpe.net pins one tag and shows it on every analysis, so you can always find the exact text that produced a score.
 
 ## Contributing
 
 We welcome contributions! You can:
-- **Improve existing prompts** — better questions, clearer scoring, fewer hallucinations
-- **Add new frameworks** — DCF analysis, macro overlay, sector-specific screens, ESG scoring
+- **Improve existing prompts** — clearer scoring anchors, better handling of missing data, fewer model-to-model swings
+- **Propose new frameworks** — open an issue first; ETF and fund quality lenses are on the site's roadmap
 - **Add translations** — help non-English speakers use these tools
-- **Share results** — test prompts against real stocks and report what works
+- **Share results** — run a prompt on two models and report where they disagree
 
-See [CLAUDE.md](CLAUDE.md) for prompt design rules all contributions must follow.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the rules and the release process.
 
 ## Disclaimer
 
@@ -131,4 +143,4 @@ These prompts are for **educational and research purposes only**. The output doe
 
 ## License
 
-MIT
+MIT, see [LICENSE](LICENSE).

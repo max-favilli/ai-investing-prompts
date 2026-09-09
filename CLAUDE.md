@@ -4,23 +4,24 @@
 
 This is an open-source collection of structured prompts for AI-assisted stock analysis. The prompts encode proven investment frameworks (value investing, behavioral finance) into repeatable, scorable formats that can be used with any large language model.
 
-Available as a **Claude Code plugin** with ready-to-use skills, or as standalone prompt templates you can copy into any AI model.
+The files in `prompts/` are run verbatim by winthorpe.net; the Claude Code skills in `skills/` read those same files. There is one copy of each prompt.
 
 ## Prompt Design Rules
 
 All prompts in this repository MUST follow these principles:
 
 ### Data Integrity
-- Every prompt MUST instruct the AI to state the date of its most recent data.
-- Every prompt MUST instruct the AI to write `[NOT VERIFIED]` rather than fabricate data it cannot confirm.
-- Every prompt MUST instruct the AI to cite sources (SEC filings, earnings calls, data providers) where possible.
-- Every prompt MUST instruct the AI to distinguish facts from opinions/assessments.
+- Every prompt receives its numbers in the `{{DATA}}` block and MUST tell the model to use only that data for quantitative claims and to treat `[NOT AVAILABLE]` as unknown, never as a value to estimate.
+- The model's own knowledge is reserved for qualitative judgement (moat, management, narrative, sentiment).
+- Prompts MUST NOT ask the model to browse or cite external sources; the app supplies and records the data.
 
 ### Structure
 - Each prompt MUST define a clear role for the AI.
 - Each prompt MUST use a scoring system with explicit interpretation bands so results are comparable across stocks.
 - Each prompt MUST include a structured output format section.
-- Each prompt MUST end with the standard disclaimer (see below).
+- Each prompt MUST end with the machine-readable JSON block whose keys the site parses. Do not rename keys without an issue first.
+- Each prompt MUST start with front matter: `id`, `title`, `summary`, `placeholders`.
+- The disclaimer lives in the README and on the site, not inside the prompt text the model receives.
 
 ### Language
 - All prompts are written in English.
@@ -33,7 +34,7 @@ All prompts in this repository MUST follow these principles:
 
 ### Standard Disclaimer
 
-Every prompt MUST include this disclaimer at the end:
+Skills and the README end with this disclaimer:
 
 > This is for **educational and research purposes only** — not financial advice. AI models can hallucinate data and lack real-time information. Always verify against primary sources before making investment decisions.
 
@@ -56,8 +57,4 @@ Install the plugin, then use these skills:
 
 ## Contributing
 
-When adding a new prompt or skill:
-1. Follow all rules in this file.
-2. Place prompt templates in `/prompts` and skill definitions in `/skills/<name>/SKILL.md`.
-3. Test the prompt against at least 2-3 well-known stocks to verify output quality.
-4. Update this file and `README.md` to document the new skill.
+See `CONTRIBUTING.md`. In short: discuss structural changes in an issue, send wording and scoring changes as a PR with before-and-after model output, keep the front matter, placeholders and JSON block intact, and add a `CHANGELOG.md` entry. Versions are git tags; winthorpe.net pins one.
