@@ -24,7 +24,7 @@ Operating Margin: <value>%
 
 === FINANCIAL HEALTH ===
 Net Debt/EBITDA: <value>x
-Debt-to-Equity: <value>
+Debt-to-Equity: <value> (ratio: 0.49 means debt is 49% of equity)
 Interest Coverage: <value>x
 
 === GROWTH ===
